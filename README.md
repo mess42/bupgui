@@ -14,7 +14,7 @@ How to install and configure:
 
 sudo apt-get install python-tk bup
 
-sudo usermod -aG fuse <yourusername>
+sudo usermod -aG fuse yourusername
 
 cp bupgui.py /media/backupdrive
 
