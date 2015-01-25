@@ -11,7 +11,7 @@ It saves the home folder of the user executing it.
 How to install and configure:
 
 #!/bin/bash
-sudo apt-get install python-tk bup nautilus
+sudo apt-get install python-tk bup
 sudo usermod -aG fuse <yourusername>
 cp bupgui.py /media/backupdrive
 cd /media/backupdrive
