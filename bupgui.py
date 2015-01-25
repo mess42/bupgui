@@ -32,6 +32,10 @@ class bupgui(Frame):
         self.pack()
         self.createWidgets()
         
+        self.scriptdir = str(os.path.realpath(__file__))
+        self.scriptdir = self.scriptdir.replace(str(os.path.basename(__file__)).strip(), "")
+        self.bupdir    = self.scriptdir + "bupdir"
+
     def createWidgets(self):
         self.savebutton = Button( self, text="Save /home/"+getpass.getuser(), command=self.bupsave )
         self.savebutton.grid(row=0, column=0, columnspan=1)
@@ -39,16 +43,14 @@ class bupgui(Frame):
         self.viewbutton.grid(row=1, column=0, columnspan=1)
 
     def bupsave(self):
-        os.system( "bup -d bupdir index -u ~/" )
-        os.system( "bup -d bupdir save -n backup_" + getpass.getuser() + " ~/" )
+        os.system( "bup -d " + self.bupdir + " index -u ~/" )
+        os.system( "bup -d " + self.bupdir + " save -n backup_" + getpass.getuser() + " ~/" )
 
     def viewbackups(self):
         #fusermount -u 
-        os.system("bup -d bupdir fuse mountpoint")
-        os.system("nautilus " + os.getcwd() + "/mountpoint")
-
-
-
+        os.system("bup -d " + self.bupdir + " fuse " + self.scriptdir + "mountpoint")
+        os.system("xdg-open " + self.scriptdir + "mountpoint")
+ 
 root = Tk()
 root.title( "simple bup gui" )
 app = bupgui(master = root )
